@@ -1,4 +1,4 @@
-package study;
+package com.jinu.project;
 
 import org.junit.jupiter.api.Test;
 
