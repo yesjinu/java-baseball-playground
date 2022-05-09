@@ -10,4 +10,21 @@ public class StringTest {
         String actual = "abc".replace("b", "d");
         assertThat(actual).isEqualTo("adc");
     }
+
+    @Test
+    void splitMultiple() {
+        String[] actual = "a,b,c".split(",");
+        assertThat(actual).isEqualTo(new String[]{"a", "b", "c"});
+        assertThat(actual).contains("a");
+        assertThat(actual).contains("b");
+        assertThat(actual).contains("c");
+    }
+
+    @Test
+    void splitSingle() {
+        String[] actual = "a".split(",");
+        assertThat(actual).isEqualTo(new String[]{"a"});
+        assertThat(actual).containsExactly("a");
+    }
+
 }
