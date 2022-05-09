@@ -27,4 +27,9 @@ public class StringTest {
         assertThat(actual).containsExactly("a");
     }
 
+    @Test
+    void substring() {
+        String actual = "(1,2)".substring(1, 4);
+        assertThat(actual).isEqualTo("1,2");
+    }
 }
