@@ -3,6 +3,7 @@ package study;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
     @Test
@@ -31,5 +32,10 @@ public class StringTest {
     void substring() {
         String actual = "(1,2)".substring(1, 4);
         assertThat(actual).isEqualTo("1,2");
+    }
+
+    @Test
+    void charAt() {
+        assertThatThrownBy(() -> "abc".charAt(3)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }
