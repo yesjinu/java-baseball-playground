@@ -9,19 +9,34 @@ public class StringCalculator {
             return 0;
         }
 
-        return sum(toInts(split(str)));
-    }
+        String[] splittedStr = split(str);
 
-    private static Integer sum(Integer[] operands) {
-        Integer sum = 0;
-        for (Integer op: operands) {
-            sum += op;
+        if (splittedStr.length == 1) {
+            return Integer.parseInt(splittedStr[0]);
         }
-        return sum;
-    }
 
-    private static Integer[] toInts(String[] strList) {
-        return Arrays.stream(strList).map(Integer::parseInt).toArray(Integer[]::new);
+        Integer result = Integer.parseInt(splittedStr[0]);
+        for (Integer idx = 1; idx < splittedStr.length; idx += 2) {
+            System.out.println(Arrays.toString(splittedStr));
+            switch (splittedStr[idx]) {
+                case "+":
+                    result += Integer.parseInt(splittedStr[idx + 1]);
+                    break;
+                case "-":
+                    result -= Integer.parseInt(splittedStr[idx + 1]);
+                    break;
+                case "*":
+                    result *= Integer.parseInt(splittedStr[idx + 1]);
+                    break;
+                case "/":
+                    result /= Integer.parseInt(splittedStr[idx + 1]);
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+        }
+
+        return result;
     }
 
     private static boolean isEmpty(String str) {
@@ -29,6 +44,6 @@ public class StringCalculator {
     }
     
     private static String[] split(String str) {
-        return str.split(",|:");
+        return Arrays.stream(str.split(" ")).map(String::trim).toArray(String[]::new);
     }
 }
