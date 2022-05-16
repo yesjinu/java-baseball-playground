@@ -35,8 +35,8 @@ public class StringCalculatorTest {
 
     @Test
     void add_multipe() {
-        String str1 = "1,2";
-        String str2 = "1,2:3";
+        String str1 = "1 + 2";
+        String str2 = "1 + 2 + 3";
 
         Integer str1Result = StringCalculator.operate(str1);
         Integer str2Result = StringCalculator.operate(str2);
@@ -44,4 +44,18 @@ public class StringCalculatorTest {
         assertThat(str1Result).isEqualTo(3);
         assertThat(str2Result).isEqualTo(6);
     }
+
+    @Test
+    void calc_multiple() {
+        String str1 = "1 + 2 / 3";
+        String str2 = "2 - 1 * 4";
+
+        Integer str1Result = StringCalculator.operate(str1);
+        Integer str2Result = StringCalculator.operate(str2);
+
+        assertThat(str1Result).isEqualTo(1);
+        assertThat(str2Result).isEqualTo(4);
+    }
+
+
 }
