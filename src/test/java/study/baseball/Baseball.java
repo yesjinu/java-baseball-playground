@@ -9,36 +9,31 @@ public class Baseball {
     }
 
     public String guess(String guess) {
-        // iterate each character of guess
-        int strikeCount = countStrike(ANSWER, guess);
-        int ballCount = countBall(ANSWER, guess);
+        Integer strikeCount = countStrike(ANSWER, guess);
+        Integer ballCount = countBall(ANSWER, guess);
 
-        String result = "";
+        return printResult(strikeCount, ballCount);
+    }
+
+    private String printResult(Integer strikeCount, Integer ballCount) {
+        if (strikeCount > 0 && ballCount > 0) {
+            return strikeCount + " Strike " + ballCount + " Ball";
+        }
         if (strikeCount > 0) {
-            result = result + strikeCount + " Strike";
+            return strikeCount + " Strike";
         }
-
         if (ballCount > 0) {
-            if (!result.isEmpty()) {
-                result += " ";
-            }
-            result = result + ballCount + " Ball";
+            return ballCount + " Ball";
         }
 
-        if (strikeCount == 0 && ballCount == 0) {
-            return "nothing";
-        }
-
-        return result;
+        return "nothing";
     }
 
     private Integer countStrike(String answer, String guess) {
         Integer strikeCount = 0;
         for (int i = 0; i < PITCH_NUM; i++) {
             char guessChar = guess.charAt(i);
-            if (isStrike(answer, i, guessChar)) {
-                strikeCount += 1;
-            }
+            strikeCount += strike(answer, i, guessChar);
         }
 
         return strikeCount;
@@ -48,19 +43,25 @@ public class Baseball {
         Integer ballCount = 0;
         for (int i = 0; i < PITCH_NUM; i++) {
             char guessChar = guess.charAt(i);
-            if (isBall(answer, i, guessChar)) {
-                ballCount += 1;
-            }
+            ballCount += ball(answer, i, guessChar);
         }
 
         return ballCount;
     }
 
-    private Boolean isStrike(String answer, Integer idx, char guess) {
-        return answer.charAt(idx) == guess;
+    private Integer strike(String answer, Integer idx, char guess) {
+        if (answer.charAt(idx) == guess) {
+            return 1;
+        }
+
+        return 0;
     }
 
-    private Boolean isBall(String answer, Integer idx, char guess) {
-        return answer.indexOf(guess) != -1 && answer.charAt(idx) != guess;
+    private Integer ball(String answer, Integer idx, char guess) {
+        if (answer.indexOf(guess) != -1 && answer.charAt(idx) != guess) {
+            return 1;
+        }
+
+        return 0;
     }
 }
