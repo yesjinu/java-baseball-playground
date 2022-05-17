@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BaseballTest {
     private final String ANSWER = "123";
-    private Baseball game = new Baseball(ANSWER);;
+    private final Baseball game = new Baseball(ANSWER);
 
 
     @Test
@@ -19,7 +19,7 @@ public class BaseballTest {
         assertThat(result1).isEqualTo("3 Strike");
         assertThat(result2).isEqualTo("1 Strike");
         assertThat(result3).isEqualTo("1 Strike");
-        assertThat(result4).isEqualTo("0 Strike");
+        assertThat(result4).isEqualTo("nothing");
     }
 
 }
