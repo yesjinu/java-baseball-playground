@@ -4,46 +4,57 @@ import java.util.Arrays;
 
 public class StringCalculator {
 
-    public static Integer operate(String str) {
-        if (isEmpty(str)) {
+    public static Integer operate(String formula) {
+        if (isEmpty(formula)) {
             return 0;
         }
 
-        String[] splittedStr = split(str);
+        return calculate(parse(formula));
+    }
 
-        if (splittedStr.length == 1) {
-            return Integer.parseInt(splittedStr[0]);
+    private static Integer calculate(String[] parsedFormula) {
+        if (parsedFormula.length == 1) {
+            return Integer.parseInt(parsedFormula[0]);
         }
 
-        Integer result = Integer.parseInt(splittedStr[0]);
-        for (Integer idx = 1; idx < splittedStr.length; idx += 2) {
-            System.out.println(Arrays.toString(splittedStr));
-            switch (splittedStr[idx]) {
-                case "+":
-                    result += Integer.parseInt(splittedStr[idx + 1]);
-                    break;
-                case "-":
-                    result -= Integer.parseInt(splittedStr[idx + 1]);
-                    break;
-                case "*":
-                    result *= Integer.parseInt(splittedStr[idx + 1]);
-                    break;
-                case "/":
-                    result /= Integer.parseInt(splittedStr[idx + 1]);
-                    break;
-                default:
-                    throw new IllegalArgumentException();
-            }
-        }
+        return calculate(reduce(parsedFormula)); // calculate recursively
+    }
 
-        return result;
+    private static String[] reduce(String[] parsedFormula) {
+        parsedFormula[2] = calcFirstTwo(parsedFormula).toString();
+        String[] reducedFormula = Arrays.copyOfRange(parsedFormula, 2, parsedFormula.length);
+
+        return reducedFormula;
+    }
+
+    private static Integer calcFirstTwo (String[] parsedFormula) {
+        Integer left = Integer.parseInt(parsedFormula[0]);
+        String operator = parsedFormula[1];
+        Integer right = Integer.parseInt(parsedFormula[2]);
+
+        return operate(left, operator, right);
+    }
+
+    private static Integer operate(Integer left, String operator, Integer right) {
+        switch (operator) {
+            case "+":
+                return left + right;
+            case "-":
+                return left - right;
+            case "*":
+                return left * right;
+            case "/":
+                return left / right;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     private static boolean isEmpty(String str) {
         return str == null || str.isEmpty();
     }
     
-    private static String[] split(String str) {
+    private static String[] parse(String str) {
         return Arrays.stream(str.split(" ")).map(String::trim).toArray(String[]::new);
     }
 }

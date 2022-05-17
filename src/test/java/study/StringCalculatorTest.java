@@ -48,13 +48,13 @@ public class StringCalculatorTest {
     @Test
     void calc_multiple() {
         String str1 = "1 + 2 / 3";
-        String str2 = "2 - 1 * 4";
+        String str2 = "2 - 1 * 4 * 10 - 7";
 
         Integer str1Result = StringCalculator.operate(str1);
         Integer str2Result = StringCalculator.operate(str2);
 
         assertThat(str1Result).isEqualTo(1);
-        assertThat(str2Result).isEqualTo(4);
+        assertThat(str2Result).isEqualTo(33);
     }
 
 
