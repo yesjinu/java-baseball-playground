@@ -1,4 +1,4 @@
-package study;
+package study.stringcalculator;
 
 import org.junit.jupiter.api.Test;
 
