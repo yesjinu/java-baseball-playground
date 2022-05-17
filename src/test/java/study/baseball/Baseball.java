@@ -1,6 +1,7 @@
 package study.baseball;
 
 public class Baseball {
+    public static final int PITCH_NUM = 3;
     private final String ANSWER;
 
     public Baseball(String answer) {
@@ -9,23 +10,8 @@ public class Baseball {
 
     public String guess(String guess) {
         // iterate each character of guess
-        int strikeCount = 0;
-        int ballCount = 0;
-        
-        for (int i = 0; i < 3; i++) {
-            char guessChar = guess.charAt(i);
-            for (int j = 0; j < 3; j++) {
-                char answerChar = ANSWER.charAt(j);
-
-                if (guessChar == answerChar && i == j) {
-                    strikeCount += 1;
-                    break;
-                } else if (guessChar == answerChar) {
-                    ballCount += 1;
-                    break;
-                }
-            }
-        }
+        int strikeCount = countStrike(ANSWER, guess);
+        int ballCount = countBall(ANSWER, guess);
 
         String result = "";
         if (strikeCount > 0) {
@@ -44,5 +30,37 @@ public class Baseball {
         }
 
         return result;
+    }
+
+    private Integer countStrike(String answer, String guess) {
+        Integer strikeCount = 0;
+        for (int i = 0; i < PITCH_NUM; i++) {
+            char guessChar = guess.charAt(i);
+            if (isStrike(answer, i, guessChar)) {
+                strikeCount += 1;
+            }
+        }
+
+        return strikeCount;
+    }
+
+    private Integer countBall(String answer, String guess) {
+        Integer ballCount = 0;
+        for (int i = 0; i < PITCH_NUM; i++) {
+            char guessChar = guess.charAt(i);
+            if (isBall(answer, i, guessChar)) {
+                ballCount += 1;
+            }
+        }
+
+        return ballCount;
+    }
+
+    private Boolean isStrike(String answer, Integer idx, char guess) {
+        return answer.charAt(idx) == guess;
+    }
+
+    private Boolean isBall(String answer, Integer idx, char guess) {
+        return answer.indexOf(guess) != -1 && answer.charAt(idx) != guess;
     }
 }
