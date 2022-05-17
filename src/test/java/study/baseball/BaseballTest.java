@@ -1,5 +1,25 @@
 package study.baseball;
 
-class BaseballTest {
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class BaseballTest {
+    private final String ANSWER = "123";
+    private Baseball game = new Baseball(ANSWER);;
+
+
+    @Test
+    void checkStrike() {
+        String result1 = game.guess("123");
+        String result2 = game.guess("132");
+        String result3 = game.guess("453");
+        String result4 = game.guess("456");
+
+        assertThat(result1).isEqualTo("3 Strike");
+        assertThat(result2).isEqualTo("1 Strike");
+        assertThat(result3).isEqualTo("1 Strike");
+        assertThat(result4).isEqualTo("0 Strike");
+    }
 
 }
